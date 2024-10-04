@@ -20,7 +20,7 @@ jobs:
       - name: BE - install dependencies
         run: npm install
       - name: BE - linting
-        run: npx eslint . --ignore-pattern "build/*,patientor-fe/*"
+        run: npx eslint . --ignore-pattern "build/*" --ignore-pattern "patientor-fe/*"
       - name: BE - build 
         run: npm run build
       - name: FE - build
