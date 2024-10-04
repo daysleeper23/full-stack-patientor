@@ -18,8 +18,9 @@ export default tseslint.config({
     "@stylistic": stylistic,
   },
   ignores: [
-    'node_modules/',
-    'build/'
+    '**/dist/',
+    '**/build/',
+    '**/node_modules/',
   ],
   rules: {
     '@stylistic/semi': 'error',
