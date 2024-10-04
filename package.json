@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "tsc": "tsc",
+    "build": "tsc",
     "dev": "ts-node-dev index.ts",
-    "lint": "eslint .",
+    "start": "node build/index.js",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
