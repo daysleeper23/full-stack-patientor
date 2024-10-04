@@ -7,6 +7,6 @@ const getAll = async () => {
     `${apiBaseUrl}/diagnoses`);
 
   return data;
-}
+};
 
-export default { getAll }
+export default { getAll };

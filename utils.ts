@@ -7,7 +7,7 @@ export const NewEntrySchema = z.object({
   description: z.string(),
   type: z.nativeEnum(EntryType),
   diagnosisCodes: z.array(string()).optional()
-})
+});
 
 export const NewEntryHospitalSchema = z.object({
   date: z.string().date(),
@@ -16,7 +16,7 @@ export const NewEntryHospitalSchema = z.object({
   type: z.literal('Hospital'),
   diagnosisCodes: z.array(string()).optional(),
   discharge: z.object({ date: z.string().date(), criteria: z.string() })
-})
+});
 
 export const NewEntryOccupationalSchema = z.object({
   date: z.string().date(),
@@ -26,7 +26,7 @@ export const NewEntryOccupationalSchema = z.object({
   diagnosisCodes: z.array(string()).optional(),
   employerName: z.string(),
   sickLeave: z.object({ startDate: z.string(), endDate: z.string() }).optional()
-})
+});
 
 export const NewEntryHealthCheckSchema = z.object({
   date: z.string().date(),
@@ -35,7 +35,7 @@ export const NewEntryHealthCheckSchema = z.object({
   type: z.literal('HealthCheck'),
   healthCheckRating: z.nativeEnum(HealthCheckRating),
   diagnosisCodes: z.array(string()).optional()
-})
+});
 
 export const NewPatientSchema = z.object({
   name: z.string(),
