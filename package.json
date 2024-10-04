@@ -6,7 +6,7 @@
     "build": "tsc",
     "dev": "ts-node-dev index.ts",
     "start": "node build/index.js",
-    "lint": "npx eslint . --ignore-pattern 'build/*' 'patientor-fe/*",
+    "lint": "npx eslint . --ignore-pattern 'build/*' 'patientor-fe/*'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
