@@ -24,7 +24,7 @@ jobs:
       - name: BE - build 
         run: npm run build
       - name: FE - build
-        run: cd patientor-fe && npm install && npm run build && cp -r dist ../
+        run: cd patientor-fe && npm install && npm run build && cp -r dist ../ && cd ..
 
   #     # - name: test
   #     #   run: npm run test
