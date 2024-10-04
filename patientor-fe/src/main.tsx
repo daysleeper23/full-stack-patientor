@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom/client.js';
+import ReactDOM from 'react-dom/client';
 import App from './App.js';
 import { BrowserRouter as Router } from 'react-router-dom';
 
