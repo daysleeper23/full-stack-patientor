@@ -21,6 +21,7 @@ export default tseslint.config({
     '**/dist/',
     '**/build/',
     '**/node_modules/',
+    '**/patientor-fe/'
   ],
   rules: {
     '@stylistic/semi': 'error',
