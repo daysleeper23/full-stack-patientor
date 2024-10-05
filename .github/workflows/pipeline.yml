@@ -40,7 +40,7 @@ jobs:
       - name: FE - deploy to main folder
         run: cd fe && cp -r dist ../ && cd ..
       - name: FE - commit & push
-        run: git checkout -b main & && git pull origin main && git add . && git commit -m "febuild" && git push origin main
+        run: git checkout -b main && git pull origin main && git add . && git commit -m "febuild" && git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
