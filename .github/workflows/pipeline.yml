@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Get the commit message
         id: commit_message
         run: |
           commit_message=$(git log -1 --pretty=format:"%s")
           echo "::set-output name=message::$commit_message"
-  buil-fe:
+  build-fe:
+    needs: [check_commit_message]
     if: ${{ !contains(github.commit_message.outputs.message, 'febuild') }}
     runs-on: ubuntu-20.04
     steps:
@@ -34,18 +34,17 @@ jobs:
       - name: FE - install dependencies
         run: cd fe && npm install
       - name: FE - linting
-        run: npm run lint
+        run: cd fe && npm run lint
       - name: FE - build
-        run: npm run build
-      - name: FE - deploy to main folder
-        run: cp -r dist ../ && cd ..
+        run: cd fe && npm run build
       - name: FE - commit & push
-        run: git commit -m "febuild" && git push origin main
+        run: git checkout -b main && git pull origin main && git add . && git commit -m "febuild" && git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     env: 
       DEPLOY_FLAG: ${{ !contains(github.event.head_commit.message, '#skip') && github.event_name == 'push' }}
+    needs: [build-fe]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
