@@ -34,11 +34,11 @@ jobs:
       - name: FE - install dependencies
         run: cd fe && npm install
       - name: FE - linting
-        run: npm run lint
+        run: cd fe && npm run lint
       - name: FE - build
-        run: npm run build
+        run: cd fe && npm run build
       - name: FE - deploy to main folder
-        run: cp -r dist ../ && cd ..
+        run: cd fe && cp -r dist ../ && cd ..
       - name: FE - commit & push
         run: git commit -m "febuild" && git push origin main
         env:
