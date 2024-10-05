@@ -7,7 +7,7 @@ import patientsRouter from './routes/patients';
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(express.static('dist'));
+app.use(express.static('./fe/dist'));
 
 app.get('/api/ping', (_req, res) => {
   res.status(200).json({ message: 'pong'});

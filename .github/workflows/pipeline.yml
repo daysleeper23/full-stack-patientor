@@ -37,8 +37,6 @@ jobs:
         run: cd fe && npm run lint
       - name: FE - build
         run: cd fe && npm run build
-      - name: FE - deploy to main folder
-        run: cd fe && cp -r dist ../ && cd ..
       - name: FE - commit & push
         run: git checkout -b main && git pull origin main && git add . && git commit -m "febuild" && git push origin main
         env:
