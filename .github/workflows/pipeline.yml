@@ -13,13 +13,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Get the commit message
         id: commit_message
         run: |
           commit_message=$(git log -1 --pretty=format:"%s")
           echo "::set-output name=message::$commit_message"
-  buil-fe:
+  build-fe:
+    needs: [check_commit_message]
     if: ${{ !contains(github.commit_message.outputs.message, 'febuild') }}
     runs-on: ubuntu-20.04
     steps:
@@ -46,6 +46,7 @@ jobs:
   deploy:
     env: 
       DEPLOY_FLAG: ${{ !contains(github.event.head_commit.message, '#skip') && github.event_name == 'push' }}
+    needs: [build-fe]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
