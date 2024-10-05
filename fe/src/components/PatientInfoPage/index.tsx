@@ -38,7 +38,7 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
       setPatientInfo(patient);
     };
     void fetchPatient();
-  }, []);
+  });
 
   const openModal = () => {
     console.log('open modal');
