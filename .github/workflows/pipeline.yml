@@ -8,6 +8,41 @@ on:
     branches: [main]
     types: [opened, synchronize]
 jobs:
+  check_commit_message:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get the commit message
+        id: commit_message
+        run: |
+          commit_message=$(git log -1 --pretty=format:"%s")
+          echo "::set-output name=message::$commit_message"
+  buil-fe:
+    if: ${{ !contains(github.commit_message.outputs.message, 'febuild') }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Configure Git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: FE - install dependencies
+        run: cd fe && npm install
+      - name: FE - linting
+        run: npm run lint
+      - name: FE - build
+        run: npm run build
+      - name: FE - deploy to main folder
+        run: cp -r dist ../ && cd ..
+      - name: FE - commit & push
+        run: git commit -m "febuild" && git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     env: 
       DEPLOY_FLAG: ${{ !contains(github.event.head_commit.message, '#skip') && github.event_name == 'push' }}
@@ -20,11 +55,9 @@ jobs:
       - name: BE - install dependencies
         run: npm install
       - name: BE - linting
-        run: npx eslint . --ignore-pattern "build/*" --ignore-pattern "patientor-fe/*"
+        run: npm run lint
       - name: BE - build 
         run: npm run build
-      - name: FE - build
-        run: cd patientor-fe && npm install && npm run build && cp -r dist ../ && cd ..
 
   #     # - name: test
   #     #   run: npm run test

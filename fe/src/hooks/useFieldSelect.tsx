@@ -1,10 +1,10 @@
 import { SelectChangeEvent } from "@mui/material";
 import { useState } from "react"
 
-export const useFieldSelect = (type: any, options: Array<{ value: any }>) => {
+export const useFieldSelect = <T extends string | number>(type: string, options: Array<{ value: T }>) => {
   const [value, setValue] = useState(options[0].value);
 
-  const onChange = (event: SelectChangeEvent<any>) => {
+  const onChange = (event: SelectChangeEvent<T>) => {
     // setValue(event.target.value);
     event.preventDefault();
     const newValue = options.find(op => op.value === event.target.value);
