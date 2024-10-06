@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+
 import diagnosesRouter from './routes/diagnoses';
 import patientsRouter from './routes/patients';
 
@@ -15,6 +17,10 @@ app.get('/api/ping', (_req, res) => {
 
 app.use('/api/diagnoses', diagnosesRouter);
 app.use('/api/patients', patientsRouter);
+
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, './fe/dist', 'index.html'));
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
