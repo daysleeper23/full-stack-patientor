@@ -34,11 +34,15 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
     void axios.get<void>(`${apiBaseUrl}/ping`);
 
     const fetchPatient = async () => {
+      console.log('fetch')
       const patient = await patientService.getOne(id);
       setPatientInfo(patient);
     };
-    void fetchPatient();
-  }, [id]);
+
+    if (!patientInfo) {
+      fetchPatient();
+    }
+  }, [id, patientInfo]);
 
   const openModal = () => {
     console.log('open modal');
