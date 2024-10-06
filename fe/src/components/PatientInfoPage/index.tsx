@@ -32,9 +32,10 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
 
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
+  }, []);
 
+  useEffect(() => {
     const fetchPatient = async () => {
-      console.log('fetch')
       const patient = await patientService.getOne(id);
       setPatientInfo(patient);
     };
@@ -45,12 +46,10 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
   }, [id, patientInfo]);
 
   const openModal = () => {
-    console.log('open modal');
     setModalOpen(true);
   }
 
   const closeModal = () => {
-    console.log('open modal')
     setModalOpen(false);
     setError('');
   }
@@ -73,7 +72,7 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
           setError("Missing or bad data!");
         }
       } else {
-        console.error("Unknown error", e);
+        console.log("Unknown error", e);
         setError("Unknown error");
       }
     }
