@@ -32,9 +32,7 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
 
   useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
-  }, []);
 
-  useEffect(() => {
     const fetchPatient = async () => {
       const patient = await patientService.getOne(id);
       setPatientInfo(patient);
@@ -43,7 +41,7 @@ const PatientInfoPage = ({ id, diag }: { id : string, diag: Array<Diagnosis> }) 
     if (!patientInfo) {
       fetchPatient();
     }
-  }, [id, patientInfo]);
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
